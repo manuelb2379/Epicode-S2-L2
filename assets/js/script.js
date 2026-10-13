@@ -49,7 +49,12 @@ const utente = {
    indirizzo: {
       via: 'Petrazzi',
       citta: 'San Vincenzo',
-      cap: 57027,
+      cap: '57027',
+      /*
+      il cap non è un numero ma un codice e per number si intende solo
+      quello che è passibile per operazioni tipo il compleanno, l'iva ecc.
+      altri numeri tipo i CAP, la P.I. è meglio impostarle come stringhe
+      */
    },
 }
 
@@ -61,7 +66,14 @@ console.log(utente.indirizzo.cap);
 */
 
 /* SCRIVI QUI LA TUA RISPOSTA */
-console.log(persona['nome']);
+
+//CORREZIONE
+const chiave = 'nome';
+console.log(persona[chiave]);
+/*
+console.log(persona['nome']); 
+sono la solita cosa ma l'es richiedeva una variabile chiamata chiave
+*/
 
 /* ESERCIZIO 5 — Numero più grande
    Tre numeri a, b, c.
@@ -90,6 +102,7 @@ if (a > b && a > c) {
 };
 
 
+
 /* ESERCIZIO 6 — E-commerce: spedizione
    Variabile 'totale'.
    Se totale >= 50 spedizione gratuita, altrimenti 9.90.
@@ -98,6 +111,8 @@ if (a > b && a > c) {
 */
 
 /* SCRIVI QUI LA TUA RISPOSTA */
+
+/*
 let totale;
 totale = 53;
 
@@ -106,9 +121,24 @@ if (totale >= 50) {
 } else {
    console.log(`Totale carrello: ${totale}€ - Spedizione: 9.90€ - Totale finale: ${totale + 9.90}€`);
 };
+*/
 
-let totaleFinale = totale >= 50
-   ? `Totale carrello: ${totale}€ - Spedizione: inclusa - Totale finale: ${totale}€`
+//CORREZIONE
+/* È meglio mettere la variabile anche a spedizione perchè se in futuro dovesse cambiare andare a correggerle tutte può risultare difficile, 
+qua invece bisogna andarla a modificare solo nell'else 1 volta */
+let totale = 52
+let spedizione;
+
+if (totale >= 50) {
+   spedizione = 0;
+   console.log(`Totale carrello: ${totale}€ - Spedizione: inclusa - Totale finale: ${totale + spedizione}€`);
+} else {
+   spedizione = 9.90;
+   console.log(`Totale carrello: ${totale}€ - Spedizione: ${spedizione} - Totale finale: ${totale + spedizione}€`);
+};
+
+const totaleFinale = totale >= 50
+   ? `Totale carrello: ${totale}€ - Spedizione: gratuita - Totale finale: ${totale}€`
    : `Totale carrello: ${totale}€ - Spedizione: 9.90€ - Totale finale: ${totale + 9.90}€`;
 
 console.log(totaleFinale);
@@ -128,7 +158,16 @@ for (const elemento of cestino)
    } else {
       console.log(elemento + ' non è un numero');
    };
+/*CORREZIONE
+for (let i= 0; i < cestino.length; i++) {
+   if (typeof cestino[i] === 'number') {
+   console.log(`${cestino[i]} è un numero`);
+} else {
+   console.log(`${cestino[i]} non un numero`);
+}
+}
 
+*/
 /* ESERCIZIO 8 — Array dei numeri
    Array vuoto. Aggiungi 1..5 con push. Aggiungi 0 all'inizio con unshift.
    Stampa array e length.
@@ -139,6 +178,10 @@ for (const elemento of cestino)
 const vuoto = [];
 
 vuoto.push(1, 2, 3, 4, 5);
+
+console.log(vuoto);
+console.log(vuoto.length);
+
 vuoto.unshift(0);
 
 console.log(vuoto);
@@ -176,19 +219,31 @@ console.log(scuola);
 /* SCRIVI QUI LA TUA RISPOSTA */
 
 const prodotti = ['Penna', 'Quaderno', 'Zaino']
+let cercato = 'Zaino'
 
-let zainoCerca = prodotti.includes('Zaino');
-console.log(`Zaino è in carrello: ${zainoCerca}`); 
-//console.log(prodotti.includes('Zaino'));
+let zainoCerca = prodotti.includes(cercato);
+console.log(`Zaino è in carrello: ${zainoCerca}`);
 
 
-let cercaZaino = prodotti.indexOf('Zaino');
-if (prodotti.includes('Zaino')=== true) {
+/*let cercaZaino = prodotti.indexOf('Zaino');
+if (prodotti.includes('Zaino') === true) {
    console.log(cercaZaino);
 } else {
    console.log(`Non in carrello`)
 };
+*/
+//CORREZIONE LOGICA DI FLUSSO PER indexOf
+
+if (zainoCerca)  {
+   let cercaZaino = prodotti.indexOf(cercato);
+   console.log(cercaZaino);
+} else {
+   console.log(`Non in carrello`)
+};
+
+
 //console.log(prodotti.indexOf('Zaino'));
+
 
 /* ESERCIZIO 11 — Lista utenti
    Array utenti di 3 oggetti { nome, eta }.
@@ -197,6 +252,16 @@ if (prodotti.includes('Zaino')=== true) {
 */
 
 /* SCRIVI QUI LA TUA RISPOSTA */
+const utenti = [
+   { nome: 'Manuel', eta: 29 },
+   { nome: 'Marco', eta: 30 },
+   { nome: 'Antonella', eta: 28 }
+]
+for (const elemento of utenti) {
+   console.log(`${elemento.nome} (${elemento.eta} anni)`);
+}
+
+console.table(utenti);
 
 /* ESERCIZIO 12 — Inventario disponibili
    Array prodotti di 4 oggetti { nome, prezzo, disponibile }.
@@ -207,6 +272,16 @@ if (prodotti.includes('Zaino')=== true) {
 */
 
 /* SCRIVI QUI LA TUA RISPOSTA */
+const prod = [
+   { nome: 'Evidenziatore', prezzo: 3.0, disponibile: true },
+   { nome: 'Bottiglia', prezzo: 5.0, disponibile: true },
+   { nome: 'Borsello', prezzo: 20.0, disponibile: false },
+   { nome: 'Dado', prezzo: 1.0, disponibile: true },
+]
+for (const elemento of utenti);
+if (elemento.disponibile === true && elemento.prezzo < 10.0) {
+   console.log(`OFFERTA: ${nome} (${prezzo})`)
+}
 
 /* --EXTRA-- ESERCIZIO 13 — Reverse manuale
    Array [1, 2, 3, 4, 5].
